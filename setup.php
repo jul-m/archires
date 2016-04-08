@@ -1,11 +1,13 @@
 <?php
 /*
- * @version $Id: setup.php 195 2013-09-05 15:31:47Z yllen $
+ * @version $Id: setup.php 196 2016-04-08 21:00:00Z jul-m $
  -------------------------------------------------------------------------
  Archires plugin for GLPI
- Copyright (C) 2003-2011 by the archires Development Team.
+ Copyright (C) 2003-2013 by the archires Development Team.
 
  https://forge.indepnet.net/projects/archires
+ -------------------------------------------------------------------------
+ * Updated by Julien MEUGNIER - https://github.com/jul-m/archires
  -------------------------------------------------------------------------
 
  LICENSE
@@ -41,76 +43,18 @@ function plugin_init_archires() {
 
    if (Session::getLoginUserID()) {
       if (plugin_archires_haveRight("archires","r")) {
-         $PLUGIN_HOOKS['menu_entry']['archires'] = 'front/archires.php';
-         //summary
-         $PLUGIN_HOOKS['submenu_entry']['archires']['options']['summary']['title']
-                  = __('Summary', 'archires');
-         $PLUGIN_HOOKS['submenu_entry']['archires']['options']['summary']['page']
-                  = '/plugins/archires/front/archires.php';
-         //views
-         $PLUGIN_HOOKS['submenu_entry']['archires']['options']['view']['title']
-                  = _n('View', 'Views', 2);
-         $PLUGIN_HOOKS['submenu_entry']['archires']['options']['view']['page']
-                  = '/plugins/archires/front/view.php';
-         $PLUGIN_HOOKS['submenu_entry']['archires']['options']['view']['links']['search']
-                  = '/plugins/archires/front/view.php';
-         //locations
-         $PLUGIN_HOOKS['submenu_entry']['archires']['options']['location']['title']
-                  = __('Location');
-         $PLUGIN_HOOKS['submenu_entry']['archires']['options']['location']['page']
-                  = '/plugins/archires/front/locationquery.php';
-         $PLUGIN_HOOKS['submenu_entry']['archires']['options']['location']['links']['search']
-                  = '/plugins/archires/front/locationquery.php';
-         //networkequipments
-         $PLUGIN_HOOKS['submenu_entry']['archires']['options']['networkequipment']['title']
-                  = _n('Network equipment', 'Network equipments', 1, 'archires');
-         $PLUGIN_HOOKS['submenu_entry']['archires']['options']['networkequipment']['page']
-                  = '/plugins/archires/front/networkequipmentquery.php';
-         $PLUGIN_HOOKS['submenu_entry']['archires']['options']['networkequipment']['links']['search']
-                  = '/plugins/archires/front/networkequipmentquery.php';
-         //appliances
-
-         if (class_exists('PluginAppliancesAppliance')) {
-         $PLUGIN_HOOKS['submenu_entry']['archires']['options']['appliance']['title']
-                  = PluginAppliancesAppliance::getTypeName(1);
-
-            $PLUGIN_HOOKS['submenu_entry']['archires']['options']['appliance']['page']
-                  = '/plugins/archires/front/appliancequery.php';
-
-            $PLUGIN_HOOKS['submenu_entry']['archires']['options']['appliance']['links']['search']
-                  = '/plugins/archires/front/appliancequery.php';
-         }
+          
+         $PLUGIN_HOOKS['menu_toadd']['archires'] = array('plugins' => 'PluginArchiresArchires');
       }
 
       if (plugin_archires_haveRight("archires","w")) {
-         //summary
-         $PLUGIN_HOOKS['submenu_entry']['archires']['options']['view']['links']['add']
-                  = '/plugins/archires/front/view.form.php?new=1';
-         $PLUGIN_HOOKS['submenu_entry']['archires']['options']['view']['links']['config']
-                  = '/plugins/archires/front/config.form.php';
-         //locations
-         $PLUGIN_HOOKS['submenu_entry']['archires']['options']['location']['links']['add']
-                  = '/plugins/archires/front/locationquery.form.php?new=1';
-         $PLUGIN_HOOKS['submenu_entry']['archires']['options']['location']['links']['config']
-                  = '/plugins/archires/front/config.form.php';
-         //networkequipments
-         $PLUGIN_HOOKS['submenu_entry']['archires']['options']['networkequipment']['links']['add']
-                  = '/plugins/archires/front/networkequipmentquery.form.php?new=1';
-         $PLUGIN_HOOKS['submenu_entry']['archires']['options']['networkequipment']['links']['config']
-                  = '/plugins/archires/front/config.form.php';
-         //appliances
-         $PLUGIN_HOOKS['submenu_entry']['archires']['options']['appliance']['links']['add']
-                  = '/plugins/archires/front/appliancequery.form.php?new=1';
-         $PLUGIN_HOOKS['submenu_entry']['archires']['options']['appliance']['links']['config']
-                  = '/plugins/archires/front/config.form.php';
 
-         if (Session::haveRight("config","w")) {
-            $PLUGIN_HOOKS['submenu_entry']['archires']['config'] = 'front/config.form.php';
-         }
          $PLUGIN_HOOKS['use_massive_action']['archires'] = 1;
       }
+      
       // Config page
-      if (plugin_archires_haveRight("archires","w") || Session::haveRight("config","w")) {
+      if (plugin_archires_haveRight("archires","w") || Session::haveRight("config", UPDATE)) {
+          
          $PLUGIN_HOOKS['config_page']['archires'] = 'front/config.form.php';
       }
    }
@@ -121,20 +65,19 @@ function plugin_init_archires() {
 function plugin_version_archires() {
 
    return array('name'           => _n('Network Architecture', 'Network Architectures', 2, 'archires'),
-                'version'        => '2.1.0',
+                'version'        => '2.1.1',
                 'author'         => 'Xavier Caillaud, Remi Collet, Nelly Mahu-Lasson, Sebastien Prudhomme',
                 'license'        => 'GPLv2+',
                 'homepage'       => 'https://forge.indepnet.net/projects/archires',
-                'minGlpiVersion' => '0.84');
+                'minGlpiVersion' => '0.85');
 }
 
 
 // Optional : check prerequisites before install : may print errors or add to message after redirect
 function plugin_archires_check_prerequisites() {
 
-   if (version_compare(GLPI_VERSION,'0.84','lt')
-         || version_compare(GLPI_VERSION,'0.85','ge')) {
-      _e('This plugin requires GLPI >= 0.84', 'archires');
+   if (version_compare(GLPI_VERSION, '0.85', 'lt') || version_compare(GLPI_VERSION, '0.91', 'ge')) {
+      _e('This plugin requires GLPI >= 0.85 and <= 0.90', 'archires');
       return false;
    }
    return true;
@@ -149,9 +92,9 @@ function plugin_archires_check_config() {
 
 function plugin_archires_haveRight($module,$right) {
 
-   $matches=array(""  => array("","r","w"), // ne doit pas arriver normalement
-                  "r" => array("r","w"),
-                  "w" => array("w"),
+   $matches=array(""  => array("","r","w",READ,CREATE), // ne doit pas arriver normalement
+                  "r" => array("r","w",READ,CREATE),
+                  "w" => array("w",CREATE),
                   "1" => array("1"),
                   "0" => array("0","1")); // ne doit pas arriver non plus
 

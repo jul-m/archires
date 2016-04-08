@@ -1,11 +1,13 @@
 <?php
 /*
- * @version $Id: vlancolor.class.php 185 2013-03-13 12:57:43Z yllen $
+ * @version $Id: vlancolor.class.php 187 2016-04-08 21:00:00Z jul-m $
  -------------------------------------------------------------------------
  Archires plugin for GLPI
  Copyright (C) 2003-2013 by the archires Development Team.
 
  https://forge.indepnet.net/projects/archires
+ -------------------------------------------------------------------------
+ * Updated by Julien MEUGNIER - https://github.com/jul-m/archires
  -------------------------------------------------------------------------
 
  LICENSE
@@ -192,8 +194,7 @@ class PluginArchiresVlanColor extends CommonDBTM {
 
    function dropdownVlan($used=array()) {
       global $DB;
-
-      $limit = $_SESSION["glpidropdown_chars_limit"];
+      
       $where = "";
 
       if (count($used)) {
@@ -217,9 +218,6 @@ class PluginArchiresVlanColor extends CommonDBTM {
          echo "<option value='-1'>".__('All VLANs', 'archires')."</option>\n";
          while ($data= $DB->fetch_array($result)) {
             $output = $data["name"];
-            if (Toolbox::strlen($output) > $limit) {
-               $output = Toolbox::substr($output,0,$limit)."&hellip;";
-            }
             echo "<option value='".$data["id"]."'>".$output."</option>";
          }
          echo "</select>";

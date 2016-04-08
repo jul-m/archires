@@ -1,11 +1,13 @@
 <?php
 /*
- * @version $Id: view.class.php 188 2013-08-03 13:09:35Z tsmr $
+ * @version $Id: view.class.php 189 2016-04-08 21:00:00Z jul-m $
  -------------------------------------------------------------------------
  Archires plugin for GLPI
  Copyright (C) 2003-2013 by the archires Development Team.
 
  https://forge.indepnet.net/projects/archires
+ -------------------------------------------------------------------------
+ * Updated by Julien MEUGNIER - https://github.com/jul-m/archires
  -------------------------------------------------------------------------
 
  LICENSE
@@ -246,7 +248,6 @@ class PluginArchiresView extends CommonDBTM {
    function showForm ($ID, $options=array()) {
 
       $this->initForm($ID, $options);
-      $this->showTabs($options);
       $this->showFormHeader($options);
 
       echo "<tr class='tab_bg_1'>";
@@ -382,7 +383,6 @@ class PluginArchiresView extends CommonDBTM {
       echo "</select></td></tr>";
 
       $this->showFormButtons($options);
-      $this->addDivForTabs();
 
       return true;
    }

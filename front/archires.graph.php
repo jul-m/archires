@@ -46,7 +46,7 @@ if (isset($_GET["displayview"])) {
                   $_GET["plugin_archires_views_id"]);
 
 } else {
-   Html::header(PluginArchiresArchires::getTypeName(),'',"plugins","archires");
+   Html::header(PluginArchiresArchires::getTypeName(),'',"plugins","PluginArchiresArchires");
 
    $obj->getFromDB($_GET["id"]);
    $object_view = $obj->fields["plugin_archires_views_id"];

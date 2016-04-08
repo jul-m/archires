@@ -1,11 +1,13 @@
 <?php
 /*
- * @version $Id: hook.php 189 2013-08-03 14:06:18Z tsmr $
+ * @version $Id: hook.php 190 2016-04-08 21:00:00Z jul-m $
  -------------------------------------------------------------------------
  Archires plugin for GLPI
  Copyright (C) 2003-2013 by the archires Development Team.
 
  https://forge.indepnet.net/projects/archires
+ -------------------------------------------------------------------------
+ * Updated by Julien MEUGNIER - https://github.com/jul-m/archires
  -------------------------------------------------------------------------
 
  LICENSE
@@ -131,7 +133,7 @@ function plugin_archires_install() {
                                     3003 => 'PluginArchiresView'),
                               array("glpi_bookmarks", "glpi_bookmarks_users",
                                     "glpi_displaypreferences", "glpi_documents_items",
-                                    "glpi_infocoms", "glpi_logs", "glpi_tickets"),
+                                    "glpi_infocoms", "glpi_logs"),
                               array("glpi_plugin_archires_querytypes",
                                     "glpi_plugin_archires_imageitems"));
    }

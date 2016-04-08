@@ -29,12 +29,12 @@
 
 include ("../../../inc/includes.php");
 
-Html::header(PluginArchiresView::getTypeName(),'',"plugins","archires","view");
+Html::header(PluginArchiresView::getTypeName(),'',"plugins","PluginArchiresArchires","view");
 
 $PluginArchiresView = new PluginArchiresView();
 
 if ($PluginArchiresView->canView()
-    || Session::haveRight("config","w")) {
+    || Session::haveRight("config", UPDATE)) {
 
    Search::show("PluginArchiresView");
 

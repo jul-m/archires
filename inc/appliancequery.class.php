@@ -1,11 +1,13 @@
 <?php
 /*
- * @version $Id: appliancequery.class.php 195 2013-09-05 15:31:47Z yllen $
+ * @version $Id: appliancequery.class.php 196 2016-04-08 21:00:00Z jul-m $
  -------------------------------------------------------------------------
  Archires plugin for GLPI
  Copyright (C) 2003-2013 by the archires Development Team.
 
  https://forge.indepnet.net/projects/archires
+ -------------------------------------------------------------------------
+ * Updated by Julien MEUGNIER - https://github.com/jul-m/archires
  -------------------------------------------------------------------------
 
  LICENSE
@@ -137,7 +139,6 @@ class PluginArchiresApplianceQuery extends CommonDBTM {
    function showForm ($ID, $options=array()) {
 
       $this->initForm($ID, $options);
-      $this->showTabs($options);
       $this->showFormHeader($options);
 
       echo "<tr class='tab_bg_1'>";
@@ -178,7 +179,6 @@ class PluginArchiresApplianceQuery extends CommonDBTM {
       echo "</td></tr>";
 
       $this->showFormButtons($options);
-      $this->addDivForTabs();
 
       return true;
    }

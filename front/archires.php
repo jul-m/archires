@@ -29,12 +29,12 @@
 
 include ("../../../inc/includes.php");
 
-Html::header(PluginArchiresArchires::getTypeName(),'',"plugins","archires","summary");
+Html::header(PluginArchiresArchires::getTypeName(),'',"plugins","PluginArchiresArchires","summary");
 
 $PluginArchiresArchires = new PluginArchiresArchires();
 
 if ($PluginArchiresArchires->canView()
-      || Session::haveRight("config","w")) {
+      || Session::haveRight("config", UPDATE)) {
 
    PluginArchiresArchires::showSummary();
 

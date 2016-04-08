@@ -1,11 +1,13 @@
 <?php
 /*
- * @version $Id: prototype.class.php 190 2013-08-03 14:36:00Z tsmr $
+ * @version $Id: prototype.class.php 191 2016-04-08 21:00:00Z jul-m $
  -------------------------------------------------------------------------
  Archires plugin for GLPI
  Copyright (C) 2003-2013 by the archires Development Team.
 
  https://forge.indepnet.net/projects/archires
+ -------------------------------------------------------------------------
+ * Updated by Julien MEUGNIER - https://github.com/jul-m/archires
  -------------------------------------------------------------------------
 
  LICENSE
@@ -251,7 +253,11 @@ class PluginArchiresPrototype extends CommonDBTM {
       echo "</table>";
 
       echo "<br><table class='tab_cadre_fixe' cellpadding='2' width='75%'>";
-      echo "<tr><th colspan='6'>"._n('Link', 'Links', 2)."</th></tr>";
+      
+      // TODO : Cooriger le bug de traduction
+      //echo "<tr><th colspan='6'>"._n('Link', 'Links', 2)."</th></tr>";
+      echo "<tr><th colspan='6'>Liens</th></tr>";
+      
       echo "<tr><th>".__('Graphviz links', 'archires')."</th>";
       echo "<th>".__('IP item 1', 'archires')."</th>";
       echo "<th>".__('Socket item 1', 'archires')."</th>";

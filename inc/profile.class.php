@@ -1,11 +1,13 @@
 <?php
 /*
- * @version $Id: profile.class.php 181 2013-03-12 10:36:28Z yllen $
+ * @version $Id: profile.class.php 182 2016-04-08 21:00:00Z jul-m $
  -------------------------------------------------------------------------
  Archires plugin for GLPI
  Copyright (C) 2003-2013 by the archires Development Team.
 
  https://forge.indepnet.net/projects/archires
+ -------------------------------------------------------------------------
+ * Updated by Julien MEUGNIER - https://github.com/jul-m/archires
  -------------------------------------------------------------------------
 
  LICENSE
@@ -40,12 +42,12 @@ class PluginArchiresProfile extends CommonDBTM {
 
 
    static function canCreate() {
-      return Session::haveRight('profile', 'w');
+      return Session::haveRight('profile', UPDATE);
    }
 
 
    static function canView() {
-      return Session::haveRight('profile', 'r');
+      return Session::haveRight('profile', UPDATE);
    }
 
 
@@ -82,7 +84,7 @@ class PluginArchiresProfile extends CommonDBTM {
       $myProf = new self();
       if (!$myProf->getFromDBByProfile($ID)) {
          $myProf->add(array('profiles_id' => $ID,
-                            'archires'    => 'w'));
+                            'archires'    => CREATE));
       }
    }
 
@@ -111,11 +113,11 @@ class PluginArchiresProfile extends CommonDBTM {
         $target = $options['target'];
       }
 
-      if (!Session::haveRight("profile","r")) {
+      if (!Session::haveRight("profile", UPDATE)) {
          return false;
       }
 
-      $canedit = Session::haveRight("profile", "w");
+      $canedit = Session::haveRight("profile", UPDATE);
       $prof = new Profile();
       if ($ID) {
          $this->getFromDBByProfile($ID);
@@ -142,8 +144,12 @@ class PluginArchiresProfile extends CommonDBTM {
       echo "</tr>";
 
       echo "<input type='hidden' name='id' value=".$this->fields["id"].">";
-
+      
+      //echo Html::submit(_sx('button', 'Save'), array('name' => 'update'));
+      
       $options['candel'] = false;
+      $options['withtemplate'] = 1;
+      
       $this->showFormButtons($options);
    }
 

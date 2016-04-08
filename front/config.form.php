@@ -33,7 +33,7 @@ if (!defined('GLPI_ROOT')) {
 
 $plugin = new Plugin();
 if ($plugin->isActivated("archires")) {
-   Session::checkRight("config","w");
+   Session::checkRight("config", UPDATE);
 
    $PluginArchiresImageItem             = new PluginArchiresImageItem();
    $PluginArchiresNetworkInterfaceColor = new PluginArchiresNetworkInterfaceColor();
@@ -54,7 +54,7 @@ if ($plugin->isActivated("archires")) {
       Html::back();
 
    } else if (isset($_POST["delete"])) {
-      Session::checkRight("config","w");
+      Session::checkRight("config", UPDATE);
       $PluginArchiresImageItem->getFromDB($_POST["id"],-1);
 
       foreach ($_POST["item"] as $key => $val) {
@@ -74,7 +74,7 @@ if ($plugin->isActivated("archires")) {
       Html::back();
 
    } else if (isset($_POST["delete_color_networkinterface"])) {
-      Session::checkRight("config","w");
+      Session::checkRight("config", UPDATE);
       $PluginArchiresNetworkInterfaceColor->getFromDB($_POST["id"],-1);
 
       foreach ($_POST["item_color"] as $key => $val) {
@@ -91,7 +91,7 @@ if ($plugin->isActivated("archires")) {
       Html::back();
 
    } else if (isset($_POST["delete_color_state"])) {
-      Session::checkRight("config","w");
+      Session::checkRight("config", UPDATE);
       $PluginArchiresStateColor->getFromDB($_POST["id"],-1);
 
       foreach ($_POST["item_color"] as $key => $val) {
@@ -108,7 +108,7 @@ if ($plugin->isActivated("archires")) {
       Html::back();
 
    } else if (isset($_POST["delete_color_vlan"])) {
-      Session::checkRight("config","w");
+      Session::checkRight("config", UPDATE);
       $PluginArchiresVlanColor->getFromDB($_POST["id"],-1);
 
       foreach ($_POST["item_color"] as $key => $val) {
@@ -119,7 +119,7 @@ if ($plugin->isActivated("archires")) {
       Html::back();
 
    } else {
-      Html::header(PluginArchiresArchires::getTypeName(), '', "plugins", "archires", "summary");
+      Html::header(__(PluginArchiresArchires::getTypeName()), '', "plugins", "PluginArchiresArchires", "summary");
 
       $PluginArchiresImageItem->showConfigForm();
 

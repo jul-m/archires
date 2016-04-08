@@ -98,13 +98,13 @@ if (isset($_POST["add"])) {
 
 } else {
 
-   $PluginArchiresApplianceQuery->checkGlobal("r");
+   $PluginArchiresApplianceQuery->checkGlobal(READ);
 
    Html::header(PluginArchiresArchires::getTypeName()." ".PluginAppliancesAppliance::getTypeName(),
-                '',"plugins","archires","appliance");
+                '',"plugins","PluginArchiresArchires","appliance");
 
-   $PluginArchiresApplianceQuery->showForm($_GET["id"]);
-
+   $PluginArchiresApplianceQueryw->display(array('id' => $_GET["id"],
+                                      'withtemplate' => 2));
    Html::footer();
 }
 ?>

@@ -42,32 +42,32 @@ $PluginArchiresLocationQuery = new PluginArchiresLocationQuery();
 $PluginArchiresQueryType     = new PluginArchiresQueryType();
 
 if (isset($_POST["add"])) {
-   $PluginArchiresLocationQuery->check(-1,'w',$_POST);
+   $PluginArchiresLocationQuery->check(-1,CREATE,$_POST);
    $PluginArchiresLocationQuery->add($_POST);
    Html::back();
 
 } else if (isset($_POST["delete"])) {
-   $PluginArchiresLocationQuery->check($_POST['id'],'w');
+   $PluginArchiresLocationQuery->check($_POST['id'],CREATE);
    $PluginArchiresLocationQuery->delete($_POST);
    Html::redirect(Toolbox::getItemTypeSearchURL('PluginArchiresLocationQuery'));
 
 } else if (isset($_POST["restore"])) {
-   $PluginArchiresLocationQuery->check($_POST['id'],'w');
+   $PluginArchiresLocationQuery->check($_POST['id'],CREATE);
    $PluginArchiresLocationQuery->restore($_POST);
    Html::redirect(Toolbox::getItemTypeSearchURL('PluginArchiresLocationQuery'));
 
 } else if (isset($_POST["purge"])) {
-   $PluginArchiresLocationQuery->check($_POST['id'],'w');
+   $PluginArchiresLocationQuery->check($_POST['id'],CREATE);
    $PluginArchiresLocationQuery->delete($_POST,1);
    Html::redirect(Toolbox::getItemTypeSearchURL('PluginArchiresLocationQuery'));
 
 } else if (isset($_POST["update"])) {
-   $PluginArchiresLocationQuery->check($_POST['id'],'w');
+   $PluginArchiresLocationQuery->check($_POST['id'], CREATE);
    $PluginArchiresLocationQuery->update($_POST);
    Html::back();
 
 } else if (isset($_POST["duplicate"])) {
-   $PluginArchiresLocationQuery->check($_POST['id'],'w');
+   $PluginArchiresLocationQuery->check($_POST['id'],CREATE);
    unset($_POST['id']);
    $PluginArchiresLocationQuery->add($_POST);
    Html::back();
@@ -99,12 +99,12 @@ if (isset($_POST["add"])) {
    Html::back();
 
 } else {
-   $PluginArchiresLocationQuery->checkGlobal("r");
+   $PluginArchiresLocationQuery->checkGlobal(READ);
 
    Html::header(PluginArchiresArchires::getTypeName()." ".PluginArchiresLocationQuery::getTypeName(),
-                '',"plugins","archires","location");
+                '',"plugins","PluginArchiresArchires","location");
 
-   $PluginArchiresLocationQuery->showForm($_GET["id"]);
+   $PluginArchiresLocationQuery->display(array('id' => $_GET["id"]));
 
    Html::footer();
 }

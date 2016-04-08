@@ -30,12 +30,12 @@
 include ("../../../inc/includes.php");
 
 Html::header(PluginArchiresArchires::getTypeName()." ".PluginAppliancesAppliance::getTypeName(),
-             '',"plugins","archires","appliance");
+             '',"plugins","PluginArchiresArchires","appliance");
 
 $PluginArchiresApplianceQuery = new PluginArchiresApplianceQuery();
 
 if ($PluginArchiresApplianceQuery->canView()
-    || Session::haveRight("config","w")) {
+    || Session::haveRight("config", UPDATE)) {
    Search::show("PluginArchiresApplianceQuery");
 
 } else {

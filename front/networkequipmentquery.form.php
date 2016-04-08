@@ -47,27 +47,27 @@ if (isset($_POST["add"])) {
    Html::back();
 
 } else if (isset($_POST["delete"])) {
-   $PluginArchiresNetworkEquipmentQuery->check($_POST['id'],'w');
+   $PluginArchiresNetworkEquipmentQuery->check($_POST['id'],CREATE);
    $PluginArchiresNetworkEquipmentQuery->delete($_POST);
    Html::redirect(Toolbox::getItemTypeSearchURL('PluginArchiresNetworkEquipmentQuery'));
 
 } else if (isset($_POST["restore"])) {
-   $PluginArchiresNetworkEquipmentQuery->check($_POST['id'],'w');
+   $PluginArchiresNetworkEquipmentQuery->check($_POST['id'],CREATE);
    $PluginArchiresNetworkEquipmentQuery->restore($_POST);
    Html::redirect(Toolbox::getItemTypeSearchURL('PluginArchiresNetworkEquipmentQuery'));
 
 } else if (isset($_POST["purge"])) {
-   $PluginArchiresNetworkEquipmentQuery->check($_POST['id'],'w');
+   $PluginArchiresNetworkEquipmentQuery->check($_POST['id'],CREATE);
    $PluginArchiresNetworkEquipmentQuery->delete($_POST,1);
    Html::redirect(Toolbox::getItemTypeSearchURL('PluginArchiresNetworkEquipmentQuery'));
 
 } else if (isset($_POST["update"])) {
-   $PluginArchiresNetworkEquipmentQuery->check($_POST['id'],'w');
+   $PluginArchiresNetworkEquipmentQuery->check($_POST['id'],CREATE);
    $PluginArchiresNetworkEquipmentQuery->update($_POST);
    Html::back();
 
 } else if (isset($_POST["duplicate"])) {
-   $PluginArchiresNetworkEquipmentQuery->check($_POST['id'],'w');
+   $PluginArchiresNetworkEquipmentQuery->check($_POST['id'],CREATE);
    unset($_POST['id']);
    $PluginArchiresNetworkEquipmentQuery->add($_POST);
    Html::back();
@@ -99,12 +99,12 @@ if (isset($_POST["add"])) {
    Html::back();
 
 } else {
-   $PluginArchiresNetworkEquipmentQuery->checkGlobal("r");
+   $PluginArchiresNetworkEquipmentQuery->checkGlobal(READ);
 
    Html::header(PluginArchiresArchires::getTypeName()." ".PluginArchiresNetworkEquipmentQuery::getTypeName(),
-                '',"plugins","archires","networkequipment");
+                '',"plugins","PluginArchiresArchires","networkequipment");
 
-   $PluginArchiresNetworkEquipmentQuery->showForm($_GET["id"]);
+   $PluginArchiresNetworkEquipmentQuery->display(array('id' => $_GET["id"]));
 
    Html::footer();
 }

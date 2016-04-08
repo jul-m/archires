@@ -1,11 +1,13 @@
 <?php
 /*
- * @version $Id: dropdownValue.php 180 2013-03-12 09:17:42Z yllen $
+ * @version $Id: dropdownValue.php 181 2016-04-08 21:00:00Z jul-m $
  -------------------------------------------------------------------------
  Archires plugin for GLPI
  Copyright (C) 2003-2013 by the archires Development Team.
 
  https://forge.indepnet.net/projects/archires
+ -------------------------------------------------------------------------
+ * Updated by Julien MEUGNIER - https://github.com/jul-m/archires
  -------------------------------------------------------------------------
 
  LICENSE
@@ -49,7 +51,13 @@ $item = new $_POST['itemtype']();
 
 // Make a select box with preselected values
 if (!isset($_POST["limit"])) {
-   $_POST["limit"] = $CFG_GLPI["dropdown_chars_limit"];
+    
+   // Est-ce un élément de configuration supprimé des versions récentes de GLPI ?
+   // Car la varianle $CFG_GLPI["use_ajax"] n'exite pas dans la version 0.90
+   //$_POST["limit"] = $CFG_GLPI["dropdown_chars_limit"];
+    
+    $_POST["limit"] = 1000;
+    
 }
 
 $NBMAX = $CFG_GLPI["dropdown_max"];
@@ -60,6 +68,7 @@ if ($_POST['searchText']==$CFG_GLPI["ajax_wildcard"]) {
 
 $where = "WHERE `id` <> '".$_POST['value']."' ";
 $field = "name";
+
 
 if ($_POST['searchText']!=$CFG_GLPI["ajax_wildcard"]) {
    $where .= " AND `$field` ".Search::makeTextSearch($_POST['searchText']);

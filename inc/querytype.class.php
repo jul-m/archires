@@ -1,11 +1,13 @@
 <?php
 /*
- * @version $Id: querytype.class.php 182 2013-03-12 14:31:02Z yllen $
+ * @version $Id: querytype.class.php 183 2016-04-08 21:00:00Z jul-m $
  -------------------------------------------------------------------------
  Archires plugin for GLPI
  Copyright (C) 2003-2013 by the archires Development Team.
 
  https://forge.indepnet.net/projects/archires
+ -------------------------------------------------------------------------
+ * Updated by Julien MEUGNIER - https://github.com/jul-m/archires
  -------------------------------------------------------------------------
 
  LICENSE
@@ -96,6 +98,18 @@ class PluginArchiresQueryType extends CommonDBTM {
             $i++;
          }
       }
+   }
+   
+   function deleteType($key) {
+       
+       global $DB;
+       
+       $query = "DELETE FROM `".$this->getTable()."`
+                 WHERE `id` = ".$key.";";
+       
+       $result = $DB->query($query);
+       
+       return $result;
    }
 
 

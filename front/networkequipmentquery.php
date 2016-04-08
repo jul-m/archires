@@ -30,12 +30,12 @@
 include ("../../../inc/includes.php");
 
 Html::header(PluginArchiresArchires::getTypeName()." ".PluginArchiresNetworkEquipmentQuery::getTypeName(),
-             '',"plugins","archires","networkequipment");
+             '',"plugins","PluginArchiresArchires","networkequipment");
 
 $PluginArchiresNetworkEquipmentQuery = new PluginArchiresNetworkEquipmentQuery();
 
 if ($PluginArchiresNetworkEquipmentQuery->canView()
-      || Session::haveRight("config","w")) {
+      || Session::haveRight("config", UPDATE)) {
    Search::show("PluginArchiresNetworkEquipmentQuery");
 
 } else {
