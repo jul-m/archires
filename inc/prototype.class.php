@@ -687,10 +687,14 @@ class PluginArchiresPrototype extends CommonDBTM {
 
    function generateGraphviz($graph, $format, $PluginArchiresView) {
 
-      if ($PluginArchiresView->fields["engine"] != 0) {
-         $engine_archires = "neato";
-      } else {
+      if ($PluginArchiresView->fields["engine"] == 0) {
          $engine_archires = "dot";
+      } elseif ($PluginArchiresView->fields["engine"] == 1) {
+         $engine_archires = "twopi";
+      } elseif ($PluginArchiresView->fields["engine"] == 2) {
+         $engine_archires = "neato";
+      } elseif ($PluginArchiresView->fields["engine"] == 3) {
+         $engine_archires = "circo";
       }
 
       return self::dotIt($engine_archires, $graph, $format);
