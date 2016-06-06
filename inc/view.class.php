@@ -334,7 +334,7 @@ class PluginArchiresView extends CommonDBTM {
 
       echo "<tr class='tab_bg_1'>";
       echo "<td>".__('Rendering engine', 'archires')."</td>";
-      echo "<td><select name='engine'> ";
+       echo "<td><select name='engine'> ";
       echo "<option ";
       if ($this->fields["engine"] == '0') {
          echo "selected ";
@@ -344,9 +344,19 @@ class PluginArchiresView extends CommonDBTM {
       if ($this->fields["engine"] == '1') {
          echo "selected ";
       }
-      echo "value='1'>Neato</option>";
+      echo "value='1'>Twopi</option>";
+      echo "<option ";
+      if ($this->fields["engine"] == '2') {
+         echo "selected ";
+      }
+      echo "value='2'>Neato</option>";
+      echo "<option ";
+      if ($this->fields["engine"] == '3') {
+         echo "selected ";
+      }
+      echo "value='3'>Circo</option>";
       echo "</select>&nbsp;";
-      Html::showToolTip(nl2br(__('With neato, the sockets will not be displayed', 'archires')));
+      Html::showToolTip(nl2br(__('With twopi, neato, and circo the sockets will not be displayed', 'archires')));
       echo "</td>";
       echo "<td>".__('Image format', 'archires')."</td>";
       echo "<td><select name='format'> ";
@@ -494,10 +504,14 @@ class PluginArchiresView extends CommonDBTM {
       echo "</td>";
 
       $engine = '';
-     if ($view->fields["engine"] != 0) {
-         $engine = "Neato";
-      } else {
+     if ($view->fields["engine"] == 0) {
          $engine = "Dot";
+      } elseif ($view->fields["engine"] == 1) {
+         $engine = "Twopi";
+      } elseif ($view->fields["engine"] == 2) {
+         $engine = "Neato";
+      } elseif ($view->fields["engine"] == 3) {
+         $engine = "Circo";
       }
 
       echo "<td class='center'>". sprintf(__('%1$s: %2$s'), __('All'),

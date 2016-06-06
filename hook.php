@@ -803,11 +803,15 @@ function plugin_archires_giveItem($type,$ID,$data,$num) {
          }
          return $out;
 
-      case "glpi_plugin_archires_views.engine" :
+ case "glpi_plugin_archires_views.engine" :
          if (empty($data["ITEM_$num"])) {
             $out = "Dot";
          } else if ($data["ITEM_$num"] == '1') {
+            $out = "Twopi";
+         } else if ($data["ITEM_$num"] == '2') {
             $out = "Neato";
+         } else if ($data["ITEM_$num"] == '3') {
+            $out = "Circo";
          }
          return $out;
 
